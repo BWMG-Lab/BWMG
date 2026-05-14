@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BWMG — Bio-Waste to Multifunctional Materials Research Group</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --night:    #0F172A;
+  --navy:     #1E3A5F;
+  --steel:    #2563EB;
+  --sky:      #93C5FD;
+  --mist:     #DBEAFE;
+  --gold:     #FCD34D;
+  --amber:    #F97316;
+  --white:    #F8FAFC;
+  --silver:   #94A3B8;
+  --border:   rgba(148,163,184,0.15);
+  --border2:  rgba(148,163,184,0.28);
+  --gold-dim: rgba(252,211,77,0.12);
+  --gold-glow:rgba(252,211,77,0.25);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--night);
+  color: var(--white);
+  overflow-x: hidden;
+}
+
+/* ── STAR FIELD BG ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse at 20% 15%, rgba(37,99,235,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 85%, rgba(30,58,95,0.2) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 30%, rgba(252,211,77,0.04) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+/* ── CUSTOM CURSOR ── */
+.cur { width:8px; height:8px; background:var(--gold); border-radius:50%; position:fixed; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:transform 0.1s; }
+.cur-r { width:32px; height:32px; border:1px solid rgba(252,211,77,0.5); border-radius:50%; position:fixed; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:transform 0.4s ease, width 0.25s, height 0.25s; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:500;
+  padding: 1.1rem 5rem;
+  display: flex; align-items:center; justify-content:space-between;
+  background: rgba(15,23,42,0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { display:flex; align-items:center; gap:0.9rem; }
+.nav-emblem {
+  width:36px; height:36px;
+  border:1px solid rgba(252,211,77,0.4);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.6rem; font-weight:500;
+  color:var(--gold);
+  letter-spacing:0.05em;
+  position:relative;
+}
+.nav-emblem::before {
+  content:'';
+  position:absolute; inset:3px;
+  border:1px solid rgba(252,211,77,0.15);
+}
+.nav-wordmark {
+  font-family:'Outfit', sans-serif;
+  font-size:0.8rem; font-weight:600;
+  color:var(--white); letter-spacing:0.04em;
+  line-height:1.3;
+}
+.nav-wordmark span { font-weight:300; color:var(--silver); font-size:0.7rem; display:block; }
+.nav-links { display:flex; gap:2.5rem; list-style:none; }
+.nav-links a {
+  font-size:0.75rem; font-weight:500;
+  letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--silver); text-decoration:none;
+  transition:color 0.2s;
+}
+.nav-links a:hover { color:var(--gold); }
+.nav-join {
+  padding:0.5rem 1.4rem;
+  background:transparent;
+  border:1px solid rgba(252,211,77,0.45);
+  color:var(--gold);
+  font-size:0.75rem; font-weight:600;
+  letter-spacing:0.1em; text-transform:uppercase;
+  text-decoration:none;
+  transition:all 0.25s;
+  position:relative; overflow:hidden;
+}
+.nav-join::before {
+  content:'';
+  position:absolute; inset:0;
+  background:var(--gold);
+  transform:translateY(100%);
+  transition:transform 0.3s ease;
+}
+.nav-join span { position:relative; z-index:1; }
+.nav-join:hover::before { transform:translateY(0); }
+.nav-join:hover span { color:var(--night); }
+
+/* ── HERO ── */
+.hero {
+  min-height:100vh;
+  display:grid; grid-template-columns:1fr 460px;
+  align-items:center; gap:4rem;
+  padding:8rem 5rem 5rem;
+  position:relative; z-index:1;
+}
+
+/* Geometric accent lines */
+.hero::before {
+  content:'';
+  position:absolute; top:0; right:440px;
+  width:1px; height:100%;
+  background:linear-gradient(to bottom, transparent, rgba(252,211,77,0.2), transparent);
+}
+
+.hero-eyebrow {
+  display:inline-flex; align-items:center; gap:0.8rem;
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.68rem; color:var(--gold);
+  letter-spacing:0.18em; text-transform:uppercase;
+  margin-bottom:2rem;
+  opacity:0; animation:fadeUp 0.7s 0.1s forwards;
+}
+.hero-eyebrow::before { content:''; width:24px; height:1px; background:var(--gold); }
+
+.hero-title {
+  font-family:'Cormorant Garamond', serif;
+  font-size:clamp(3rem,6vw,5.5rem);
+  font-weight:300;
+  line-height:1.0;
+  letter-spacing:-0.01em;
+  color:var(--white);
+  margin-bottom:0.8rem;
+  opacity:0; animation:fadeUp 0.8s 0.25s forwards;
+}
+.hero-title .hl {
+  color:var(--gold);
+  font-style:italic;
+}
+.hero-title .arr {
+  font-family:'Outfit', sans-serif;
+  font-weight:300;
+  color:var(--sky);
+  font-size:0.6em;
+  vertical-align:middle;
+  letter-spacing:0;
+}
+
+.hero-sub-title {
+  font-family:'Cormorant Garamond', serif;
+  font-size:clamp(1.4rem,2.5vw,2.2rem);
+  font-weight:300;
+  font-style:italic;
+  color:var(--sky);
+  margin-bottom:1.8rem;
+  opacity:0; animation:fadeUp 0.8s 0.4s forwards;
+}
+
+.hero-desc {
+  font-size:0.95rem; line-height:1.85;
+  color:var(--silver); max-width:500px;
+  margin-bottom:2.5rem;
+  opacity:0; animation:fadeUp 0.8s 0.55s forwards;
+}
+
+.hero-tags {
+  display:flex; flex-wrap:wrap; gap:0.5rem;
+  margin-bottom:3rem;
+  opacity:0; animation:fadeUp 0.8s 0.7s forwards;
+}
+.htag {
+  padding:0.3rem 0.85rem;
+  border:1px solid var(--border2);
+  font-size:0.72rem; font-weight:500;
+  color:var(--silver); letter-spacing:0.04em;
+  transition:all 0.25s;
+}
+.htag:hover { border-color:var(--gold); color:var(--gold); }
+.htag.gold-tag { border-color:rgba(252,211,77,0.3); color:var(--gold); background:var(--gold-dim); }
+
+.hero-actions {
+  display:flex; gap:1rem; flex-wrap:wrap;
+  opacity:0; animation:fadeUp 0.8s 0.85s forwards;
+}
+.btn-gold {
+  padding:0.85rem 2rem;
+  background:var(--gold);
+  color:var(--night);
+  font-size:0.8rem; font-weight:700;
+  letter-spacing:0.1em; text-transform:uppercase;
+  text-decoration:none;
+  display:inline-flex; align-items:center; gap:0.5rem;
+  transition:all 0.3s;
+  border:none; cursor:pointer;
+}
+.btn-gold:hover {
+  background:var(--amber);
+  transform:translateY(-2px);
+  box-shadow:0 12px 30px rgba(252,211,77,0.3);
+}
+.btn-line {
+  padding:0.85rem 2rem;
+  background:transparent;
+  color:var(--sky);
+  font-size:0.8rem; font-weight:600;
+  letter-spacing:0.1em; text-transform:uppercase;
+  text-decoration:none;
+  display:inline-flex; align-items:center; gap:0.5rem;
+  border:1px solid rgba(147,197,253,0.3);
+  transition:all 0.3s;
+}
+.btn-line:hover {
+  border-color:var(--sky);
+  transform:translateY(-2px);
+}
+
+/* ── HERO CARD ── */
+.hero-card-wrap {
+  position:relative;
+  opacity:0; animation:fadeRight 1s 0.4s forwards;
+}
+.hero-card {
+  background:linear-gradient(135deg, rgba(30,58,95,0.9), rgba(15,23,42,0.95));
+  border:1px solid var(--border2);
+  position:relative; overflow:hidden;
+}
+.hero-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.hero-card::after {
+  content:'';
+  position:absolute;
+  width:200px; height:200px;
+  background:radial-gradient(circle, rgba(252,211,77,0.06), transparent 70%);
+  top:-60px; right:-60px;
+  border-radius:50%;
+}
+.hc-header {
+  padding:2.5rem 2.5rem 1.5rem;
+  border-bottom:1px solid var(--border);
+  position:relative; z-index:1;
+}
+.hc-pi-label {
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.62rem; letter-spacing:0.2em;
+  text-transform:uppercase; color:var(--gold);
+  opacity:0.7; margin-bottom:1.5rem;
+}
+.hc-avatar {
+  width:80px; height:80px;
+  border:1px solid rgba(252,211,77,0.3);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Cormorant Garamond', serif;
+  font-size:2.2rem; font-weight:300;
+  color:var(--gold);
+  margin-bottom:1.2rem;
+  position:relative;
+}
+.hc-avatar::before {
+  content:'';
+  position:absolute; inset:4px;
+  border:1px solid rgba(252,211,77,0.1);
+}
+.hc-name {
+  font-family:'Cormorant Garamond', serif;
+  font-size:1.3rem; font-weight:400;
+  color:var(--white); margin-bottom:0.3rem;
+}
+.hc-title { font-size:0.78rem; color:var(--sky); }
+
+.hc-body { padding:1.5rem 2.5rem 2rem; }
+.hc-row {
+  display:flex; align-items:flex-start; gap:0.8rem;
+  padding:0.75rem 0;
+  border-bottom:1px solid var(--border);
+  font-size:0.78rem;
+}
+.hc-row:last-child { border-bottom:none; padding-bottom:0; }
+.hc-row:first-child { padding-top:0; }
+.hc-icon { font-size:0.85rem; opacity:0.6; flex-shrink:0; padding-top:0.05rem; }
+.hc-text { color:var(--silver); line-height:1.5; }
+.hc-text strong { color:var(--white); font-weight:500; display:block; }
+
+.hc-stats {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:0; border-top:1px solid var(--border);
+}
+.hc-stat {
+  padding:1.2rem;
+  text-align:center;
+  border-right:1px solid var(--border);
+}
+.hc-stat:last-child { border-right:none; }
+.hc-stat-n {
+  font-family:'Cormorant Garamond', serif;
+  font-size:2rem; font-weight:400;
+  color:var(--gold); display:block;
+}
+.hc-stat-l {
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.6rem; letter-spacing:0.1em;
+  color:var(--silver); text-transform:uppercase;
+}
+
+/* gold corner decoration */
+.corner-tl, .corner-br {
+  position:absolute;
+  width:20px; height:20px;
+}
+.corner-tl { top:-1px; left:-1px; border-top:2px solid var(--gold); border-left:2px solid var(--gold); }
+.corner-br { bottom:-1px; right:-1px; border-bottom:2px solid var(--gold); border-right:2px solid var(--gold); }
+
+/* ── MARQUEE STRIP ── */
+.marquee-strip {
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  background:rgba(252,211,77,0.03);
+  overflow:hidden; padding:0.9rem 0;
+  position:relative; z-index:1;
+}
+.marquee-track {
+  display:flex; gap:3rem;
+  animation:marquee 28s linear infinite;
+  white-space:nowrap;
+}
+.marquee-item {
+  display:flex; align-items:center; gap:0.8rem;
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.7rem; font-weight:500;
+  color:var(--silver); letter-spacing:0.1em;
+  text-transform:uppercase; flex-shrink:0;
+}
+.marquee-dot { width:4px; height:4px; background:var(--gold); border-radius:50%; flex-shrink:0; }
+@keyframes marquee {
+  from { transform:translateX(0); }
+  to   { transform:translateX(-50%); }
+}
+
+/* ── SECTION BASE ── */
+.section-wrap { position:relative; z-index:1; }
+.container { max-width:1200px; margin:0 auto; padding:0 5rem; }
+
+.s-label {
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.65rem; letter-spacing:0.22em;
+  text-transform:uppercase; color:var(--gold);
+  display:flex; align-items:center; gap:0.8rem;
+  margin-bottom:1rem;
+}
+.s-label::before { content:''; width:20px; height:1px; background:var(--gold); }
+
+.s-title {
+  font-family:'Cormorant Garamond', serif;
+  font-size:clamp(1.8rem,3vw,3rem);
+  font-weight:300; line-height:1.15;
+  color:var(--white);
+  letter-spacing:-0.01em;
+}
+.s-title em { font-style:italic; color:var(--gold); }
+
+/* ── SDG MISSION BAND ── */
+.mission-band {
+  padding:5rem 0;
+  background:linear-gradient(135deg, rgba(30,58,95,0.5) 0%, rgba(15,23,42,0.8) 100%);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  position:relative; z-index:1; overflow:hidden;
+}
+.mission-band::before {
+  content:'';
+  position:absolute; top:0; left:0; bottom:0; width:3px;
+  background:linear-gradient(to bottom, transparent, var(--gold), transparent);
+}
+.mission-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center; }
+.mission-quote {
+  font-family:'Cormorant Garamond', serif;
+  font-size:clamp(1.4rem,2.2vw,2rem);
+  font-weight:300; font-style:italic;
+  line-height:1.6; color:var(--white);
+}
+.mission-quote span { color:var(--gold); font-style:normal; }
+.sdg-list { display:flex; flex-direction:column; gap:1rem; }
+.sdg-row { display:flex; gap:1rem; align-items:flex-start; }
+.sdg-pip {
+  width:6px; height:6px; border-radius:50%;
+  flex-shrink:0; margin-top:0.45rem;
+}
+.sdg-text { font-size:0.82rem; line-height:1.6; color:var(--silver); }
+.sdg-text strong { color:var(--sky); }
+
+/* ── RESEARCH GRID ── */
+.research-pad { padding:7rem 0; }
+.r-grid {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  gap:1px; margin-top:3rem;
+  background:var(--border);
+  border:1px solid var(--border);
+}
+.r-card {
+  background:var(--night);
+  padding:2.5rem;
+  position:relative; overflow:hidden;
+  transition:background 0.3s;
+}
+.r-card:hover { background:rgba(30,58,95,0.4); }
+.r-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:2px;
+  background:var(--border);
+  transition:background 0.3s;
+}
+.r-card:hover::before { background:var(--gold); }
+.r-num {
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.6rem; letter-spacing:0.15em;
+  color:var(--silver); margin-bottom:0.8rem;
+  opacity:0.6;
+}
+.r-icon { font-size:1.6rem; margin-bottom:1.2rem; display:block; }
+.r-card h3 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:1.15rem; font-weight:400;
+  color:var(--white); margin-bottom:0.8rem; line-height:1.35;
+}
+.r-card p { font-size:0.8rem; line-height:1.75; color:var(--silver); }
+.r-chips { display:flex; flex-wrap:wrap; gap:0.4rem; margin-top:1.2rem; }
+.r-chip {
+  padding:0.2rem 0.65rem;
+  border:1px solid var(--border);
+  font-size:0.66rem; font-weight:500;
+  color:var(--silver); letter-spacing:0.04em;
+  transition:all 0.2s;
+}
+.r-card:hover .r-chip { border-color:rgba(252,211,77,0.2); color:var(--gold); }
+
+/* ── JOIN / RECRUITMENT ── */
+.join-pad {
+  padding:7rem 0;
+  background:linear-gradient(180deg, rgba(30,58,95,0.2) 0%, rgba(15,23,42,0) 100%);
+  border-top:1px solid var(--border);
+}
+.join-head { text-align:center; margin-bottom:4rem; }
+.join-head .s-label { justify-content:center; }
+
+.pos-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-bottom:4rem; }
+.pos-card {
+  border:1px solid var(--border);
+  padding:2rem;
+  position:relative; overflow:hidden;
+  transition:all 0.3s;
+}
+.pos-card::after {
+  content:'';
+  position:absolute; bottom:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform:scaleX(0); transform-origin:center;
+  transition:transform 0.3s;
+}
+.pos-card:hover { border-color:rgba(252,211,77,0.3); transform:translateY(-4px); }
+.pos-card:hover::after { transform:scaleX(1); }
+.pos-level {
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.62rem; letter-spacing:0.18em;
+  text-transform:uppercase; color:var(--gold);
+  margin-bottom:1rem;
+}
+.pos-card h3 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:1.3rem; font-weight:400;
+  color:var(--white); margin-bottom:0.7rem;
+}
+.pos-card > p { font-size:0.8rem; line-height:1.65; color:var(--silver); margin-bottom:1.5rem; }
+.pos-perks { list-style:none; display:flex; flex-direction:column; gap:0.5rem; }
+.pos-perks li {
+  font-size:0.78rem; color:var(--sky);
+  display:flex; align-items:flex-start; gap:0.5rem; line-height:1.4;
+}
+.pos-perks li::before { content:'→'; color:var(--gold); flex-shrink:0; }
+
+.join-cta-box {
+  border:1px solid rgba(252,211,77,0.25);
+  background:rgba(252,211,77,0.04);
+  padding:3rem;
+  text-align:center;
+  position:relative; overflow:hidden;
+}
+.join-cta-box::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.join-cta-box h3 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:2rem; font-weight:300;
+  color:var(--white); margin-bottom:0.8rem;
+}
+.join-cta-box p { font-size:0.88rem; color:var(--silver); margin-bottom:2rem; line-height:1.7; }
+.cta-row { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+
+/* ── PUBLICATIONS ── */
+.pub-pad { padding:7rem 0; border-top:1px solid var(--border); }
+.pub-list { margin-top:2.5rem; }
+.pub-row {
+  display:grid; grid-template-columns:72px 1fr;
+  gap:2rem; padding:1.8rem 0;
+  border-bottom:1px solid var(--border);
+  transition:all 0.25s;
+}
+.pub-row:hover { padding-left:0.8rem; }
+.pub-yr {
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.7rem; font-weight:500;
+  color:var(--silver); padding-top:0.15rem;
+  letter-spacing:0.06em;
+  transition:color 0.25s;
+}
+.pub-row:hover .pub-yr { color:var(--gold); }
+.pub-t {
+  font-family:'Cormorant Garamond', serif;
+  font-size:1rem; font-weight:400;
+  color:var(--white); line-height:1.5; margin-bottom:0.4rem;
+}
+.pub-j { font-size:0.76rem; color:var(--sky); font-style:italic; margin-bottom:0.3rem; }
+.pub-a { font-size:0.74rem; color:var(--silver); line-height:1.5; }
+.pub-a strong { color:var(--gold); font-weight:500; }
+
+/* ── TEAM ── */
+.team-pad {
+  padding:7rem 0;
+  background:rgba(30,58,95,0.12);
+  border-top:1px solid var(--border);
+}
+.team-grid {
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(210px,1fr));
+  gap:1.5rem; margin-top:3rem;
+}
+.team-card {
+  border:1px solid var(--border);
+  padding:2rem 1.5rem;
+  text-align:center;
+  transition:all 0.3s;
+  position:relative;
+}
+.team-card::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:1px;
+  background:transparent;
+  transition:background 0.3s;
+}
+.team-card:hover { border-color:rgba(252,211,77,0.3); transform:translateY(-4px); }
+.team-card:hover::before { background:var(--gold); }
+.t-avatar {
+  width:68px; height:68px;
+  margin:0 auto 1.2rem;
+  border:1px solid rgba(252,211,77,0.35);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Cormorant Garamond', serif;
+  font-size:1.8rem; font-weight:300;
+  position:relative;
+}
+.t-avatar::before {
+  content:''; position:absolute; inset:3px;
+  border:1px solid rgba(252,211,77,0.1);
+}
+.t-name { font-size:0.88rem; font-weight:600; color:var(--white); margin-bottom:0.3rem; line-height:1.3; }
+.t-role {
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.62rem; letter-spacing:0.1em;
+  color:var(--gold); text-transform:uppercase;
+  margin-bottom:0.4rem;
+}
+.t-focus { font-size:0.74rem; color:var(--silver); line-height:1.5; }
+
+.collab-band {
+  margin-top:3rem; padding:1.8rem 2.5rem;
+  border:1px solid var(--border);
+  background:rgba(37,99,235,0.05);
+  display:flex; align-items:center; gap:2.5rem; flex-wrap:wrap;
+}
+.collab-lbl {
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.62rem; letter-spacing:0.15em;
+  text-transform:uppercase; color:var(--gold);
+  white-space:nowrap; opacity:0.8;
+}
+.collab-list { display:flex; gap:2rem; flex-wrap:wrap; }
+.collab-item { font-size:0.78rem; color:var(--silver); display:flex; align-items:center; gap:0.4rem; }
+.collab-item::before { content:'↗'; color:var(--steel); font-size:0.8em; }
+
+/* ── NEWS ── */
+.news-pad { padding:7rem 0; border-top:1px solid var(--border); }
+.news-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-top:2.5rem; }
+.news-card {
+  border:1px solid var(--border);
+  padding:2rem;
+  transition:all 0.3s;
+  position:relative;
+}
+.news-card:hover { border-color:rgba(252,211,77,0.25); transform:translateY(-3px); }
+.n-cat {
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.62rem; letter-spacing:0.15em;
+  text-transform:uppercase;
+  display:inline-block; margin-bottom:0.8rem;
+}
+.cat-p { color:var(--gold); }
+.cat-f { color:var(--sky); }
+.cat-c { color:var(--silver); }
+.n-date { font-size:0.72rem; color:var(--silver); margin-bottom:0.6rem; opacity:0.6; }
+.news-card h4 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:1.05rem; font-weight:400;
+  color:var(--white); margin-bottom:0.6rem; line-height:1.4;
+}
+.news-card p { font-size:0.78rem; line-height:1.7; color:var(--silver); }
+
+/* ── CONTACT ── */
+.contact-pad {
+  padding:7rem 0;
+  border-top:1px solid var(--border);
+  background:linear-gradient(135deg, rgba(30,58,95,0.3) 0%, rgba(15,23,42,0) 60%);
+}
+.contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:5rem; margin-top:3rem; align-items:start; }
+.c-info-desc { font-size:0.88rem; line-height:1.85; color:var(--silver); margin:1.2rem 0 2.5rem; }
+.c-items { display:flex; flex-direction:column; gap:1.2rem; }
+.c-item { display:flex; gap:1rem; align-items:flex-start; }
+.c-icon {
+  width:36px; height:36px; flex-shrink:0;
+  border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.9rem;
+}
+.c-lbl {
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.6rem; letter-spacing:0.15em;
+  text-transform:uppercase; color:var(--gold);
+  opacity:0.7; margin-bottom:0.2rem;
+}
+.c-val { font-size:0.82rem; color:var(--silver); line-height:1.5; }
+
+.contact-form {
+  border:1px solid var(--border);
+  padding:2.5rem;
+  position:relative; overflow:hidden;
+}
+.contact-form::before {
+  content:'';
+  position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.contact-form h3 {
+  font-family:'Cormorant Garamond', serif;
+  font-size:1.4rem; font-weight:300;
+  color:var(--white); margin-bottom:1.8rem;
+}
+.f-group { margin-bottom:1.1rem; }
+.f-lbl {
+  display:block;
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.6rem; letter-spacing:0.15em;
+  text-transform:uppercase; color:var(--silver);
+  opacity:0.6; margin-bottom:0.5rem;
+}
+.f-input, .f-select, .f-textarea {
+  width:100%;
+  padding:0.7rem 1rem;
+  background:rgba(255,255,255,0.04);
+  border:1px solid var(--border);
+  color:var(--white);
+  font-family:'Outfit', sans-serif;
+  font-size:0.85rem;
+  outline:none;
+  transition:border-color 0.25s;
+  -webkit-appearance:none;
+}
+.f-input::placeholder, .f-textarea::placeholder { color:rgba(148,163,184,0.3); }
+.f-input:focus, .f-select:focus, .f-textarea:focus { border-color:rgba(252,211,77,0.4); }
+.f-select option { background:var(--night); color:var(--white); }
+.f-textarea { resize:vertical; min-height:90px; }
+
+/* ── FOOTER ── */
+footer {
+  padding:2.5rem 5rem;
+  border-top:1px solid var(--border);
+  background:rgba(15,23,42,0.9);
+  display:flex; align-items:center; justify-content:space-between;
+  position:relative; z-index:1;
+}
+.f-brand { display:flex; align-items:center; gap:0.8rem; }
+.f-emblem {
+  width:28px; height:28px;
+  border:1px solid rgba(252,211,77,0.3);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono', monospace;
+  font-size:0.5rem; color:var(--gold);
+}
+.f-name { font-size:0.75rem; color:var(--silver); }
+.f-name strong { color:var(--gold); display:block; }
+.f-copy { font-size:0.7rem; color:rgba(148,163,184,0.4); letter-spacing:0.05em; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes fadeRight {
+  from { opacity:0; transform:translateX(24px); }
+  to   { opacity:1; transform:translateX(0); }
+}
+.rev {
+  opacity:0; transform:translateY(24px);
+  transition:opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
+}
+.rev.on { opacity:1; transform:none; }
+.d1{transition-delay:.08s} .d2{transition-delay:.16s} .d3{transition-delay:.24s}
+.d4{transition-delay:.32s} .d5{transition-delay:.40s} .d6{transition-delay:.48s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  nav{padding:1rem 2rem;}
+  .nav-links{display:none;}
+  .hero{grid-template-columns:1fr; padding:6rem 2rem 3rem;}
+  .hero-card-wrap{display:none;}
+  .container{padding:0 2rem;}
+  .mission-grid{grid-template-columns:1fr; gap:2.5rem;}
+  .r-grid{grid-template-columns:1fr; gap:0;}
+  .pos-grid{grid-template-columns:1fr;}
+  .contact-grid{grid-template-columns:1fr; gap:3rem;}
+  .news-grid{grid-template-columns:1fr;}
+  footer{flex-direction:column; gap:1rem; text-align:center; padding:2rem;}
+  .cur,.cur-r{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="cur-r"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-emblem">BWMG</div>
+    <div class="nav-wordmark">
+      Bio-Waste to Multifunctional Materials
+      <span>Research Group · Chulalongkorn University</span>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#research">Research</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#team">Team</a></li>
+    <li><a href="#news">News</a></li>
+    <li><a href="#join" class="nav-join"><span>Join Us →</span></a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Dept. of Metallurgical Engineering · Chulalongkorn University</div>
+    <h1 class="hero-title">
+      <span class="hl">Bio-Waste</span><br>
+      <span class="arr">——</span> Multifunctional<br>
+      Materials
+    </h1>
+    <h2 class="hero-sub-title">for a Sustainable World</h2>
+    <p class="hero-desc">
+      Transforming biological waste into advanced functional materials — biomedical scaffolds, energy storage, and sensing devices — through cutting-edge science and synchrotron characterization.
+    </p>
+    <div class="hero-tags">
+      <span class="htag gold-tag">Biomaterials</span>
+      <span class="htag gold-tag">Energy Storage</span>
+      <span class="htag">Sensors</span>
+      <span class="htag">Synchrotron XRD</span>
+      <span class="htag">3D Printing</span>
+      <span class="htag">DFT Calculations</span>
+    </div>
+    <div class="hero-actions">
+      <a href="#research" class="btn-gold">Explore Research →</a>
+      <a href="#join" class="btn-line">Join Our Team</a>
+    </div>
+  </div>
+
+  <div class="hero-card-wrap">
+    <div class="hero-card">
+      <div class="corner-tl"></div>
+      <div class="corner-br"></div>
+      <div class="hc-header">
+        <p class="hc-pi-label">Principal Investigator</p>
+        <div class="hc-avatar">A</div>
+        <p class="hc-name">Asst. Prof. Dr. Atchara Khamkongkaeo</p>
+        <p class="hc-title">ผศ.ดร. อัจฉรา คำกองแก้ว</p>
+      </div>
+      <div class="hc-body">
+        <div class="hc-row">
+          <span class="hc-icon">🎓</span>
+          <span class="hc-text"><strong>Ph.D. Physics</strong>Khon Kaen University, 2013</span>
+        </div>
+        <div class="hc-row">
+          <span class="hc-icon">🏛️</span>
+          <span class="hc-text"><strong>Metallurgical Engineering</strong>Faculty of Engineering, Chulalongkorn Univ.</span>
+        </div>
+        <div class="hc-row">
+          <span class="hc-icon">✉️</span>
+          <span class="hc-text">atchara.k@gmail.com</span>
+        </div>
+      </div>
+      <div class="hc-stats">
+        <div class="hc-stat">
+          <span class="hc-stat-n">20+</span>
+          <span class="hc-stat-l">Papers</span>
+        </div>
+        <div class="hc-stat">
+          <span class="hc-stat-n">10+</span>
+          <span class="hc-stat-l">Years</span>
+        </div>
+        <div class="hc-stat">
+          <span class="hc-stat-n">4</span>
+          <span class="hc-stat-l">Focus Areas</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span class="marquee-item"><span class="marquee-dot"></span>Hydroxyapatite from Bio-Waste</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Supercapacitor Electrodes</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Synchrotron XAS · XANES · EXAFS</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>3D-Printed Bone Scaffolds</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Biogenic Calcium Phosphate</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>First-Principles DFT</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>SDG 3 · SDG 7 · SDG 12 · SDG 13</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Electrospun Carbon Nanofibers</span>
+    <!-- duplicate for seamless loop -->
+    <span class="marquee-item"><span class="marquee-dot"></span>Hydroxyapatite from Bio-Waste</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Supercapacitor Electrodes</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Synchrotron XAS · XANES · EXAFS</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>3D-Printed Bone Scaffolds</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Biogenic Calcium Phosphate</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>First-Principles DFT</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>SDG 3 · SDG 7 · SDG 12 · SDG 13</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Electrospun Carbon Nanofibers</span>
+  </div>
+</div>
+
+<!-- MISSION BAND -->
+<div class="mission-band section-wrap">
+  <div class="container">
+    <div class="mission-grid">
+      <div class="rev">
+        <p class="mission-quote">
+          "Turning what the world discards into<br>
+          <span>materials that heal, power, and sense</span> —<br>
+          for humanity and our planet."
+        </p>
+      </div>
+      <div class="sdg-list rev d2">
+        <div class="sdg-row">
+          <div class="sdg-pip" style="background:#4CAF50"></div>
+          <p class="sdg-text"><strong>SDG 3 — Good Health & Well-Being</strong><br>Biogenic HAp for bone implants and drug delivery</p>
+        </div>
+        <div class="sdg-row">
+          <div class="sdg-pip" style="background:#FFC107"></div>
+          <p class="sdg-text"><strong>SDG 7 — Affordable Clean Energy</strong><br>Bio-derived carbons for supercapacitors & batteries</p>
+        </div>
+        <div class="sdg-row">
+          <div class="sdg-pip" style="background:#2196F3"></div>
+          <p class="sdg-text"><strong>SDG 12 — Responsible Consumption</strong><br>Valorizing bio-waste into high-value materials</p>
+        </div>
+        <div class="sdg-row">
+          <div class="sdg-pip" style="background:#8BC34A"></div>
+          <p class="sdg-text"><strong>SDG 13 — Climate Action</strong><br>Circular economy reducing industrial bio-waste</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RESEARCH -->
+<section class="section-wrap research-pad" id="research">
+  <div class="container">
+    <p class="s-label rev">What We Do</p>
+    <h2 class="s-title rev d1">Research <em>Areas</em></h2>
+    <div class="r-grid">
+      <div class="r-card rev d1">
+        <span class="r-icon">🦴</span>
+        <p class="r-num">01 — Biomaterials</p>
+        <h3>Biogenic Hydroxyapatite for Biomedical Applications</h3>
+        <p>Engineering hydroxyapatite from Nile tilapia bones, fish scales, and other bio-waste for bone scaffolds, implant coatings, and tissue engineering. Studying sintering behavior, phase transitions, and vacancy formation.</p>
+        <div class="r-chips">
+          <span class="r-chip">Nile Tilapia Bone</span>
+          <span class="r-chip">HAp / TCP</span>
+          <span class="r-chip">Bioactivity</span>
+          <span class="r-chip">Scaffold</span>
+        </div>
+      </div>
+      <div class="r-card rev d2">
+        <span class="r-icon">⚡</span>
+        <p class="r-num">02 — Energy Storage</p>
+        <h3>Bio-derived Materials for Batteries & Supercapacitors</h3>
+        <p>Porous electrospun carbon nanofibers bearing TiO₂ hollow nanospheres derived from biogenic precursors — engineered for high-performance supercapacitor electrodes and next-generation energy storage.</p>
+        <div class="r-chips">
+          <span class="r-chip">Carbon Nanofibers</span>
+          <span class="r-chip">TiO₂</span>
+          <span class="r-chip">Electrospinning</span>
+          <span class="r-chip">Supercapacitor</span>
+        </div>
+      </div>
+      <div class="r-card rev d3">
+        <span class="r-icon">📡</span>
+        <p class="r-num">03 — Sensors</p>
+        <h3>Functional Materials for Environmental & Biosensing</h3>
+        <p>Developing bio-waste-derived functional oxides with tailored electrical and optical properties for detecting environmental pollutants and biosignals in real-world applications.</p>
+        <div class="r-chips">
+          <span class="r-chip">Metal Oxides</span>
+          <span class="r-chip">Electrical Props.</span>
+          <span class="r-chip">Environmental</span>
+          <span class="r-chip">Biosensing</span>
+        </div>
+      </div>
+      <div class="r-card rev d1">
+        <span class="r-icon">🔬</span>
+        <p class="r-num">04 — Characterization</p>
+        <h3>Synchrotron-Based Advanced Structure Analysis</h3>
+        <p>Local atomic structure analysis via synchrotron X-ray absorption spectroscopy (XANES, EXAFS) and diffraction at SLRI Thailand — revealing atomic-scale insights in bio-derived materials.</p>
+        <div class="r-chips">
+          <span class="r-chip">SLRI Thailand</span>
+          <span class="r-chip">XANES / EXAFS</span>
+          <span class="r-chip">XRD</span>
+          <span class="r-chip">Local Structure</span>
+        </div>
+      </div>
+      <div class="r-card rev d2">
+        <span class="r-icon">🖨️</span>
+        <p class="r-num">05 — Additive Manufacturing</p>
+        <h3>3D-Printed Bioceramic Scaffolds</h3>
+        <p>Fabricating patient-specific bone scaffolds via 3D printing using biogenic calcium phosphate powders — investigating HAp/TCP ratios, porosity, and mechanical performance for clinical translation.</p>
+        <div class="r-chips">
+          <span class="r-chip">3D Printing</span>
+          <span class="r-chip">HAp/TCP Ratio</span>
+          <span class="r-chip">Porosity</span>
+          <span class="r-chip">Tissue Engineering</span>
+        </div>
+      </div>
+      <div class="r-card rev d3">
+        <span class="r-icon">💻</span>
+        <p class="r-num">06 — Computational</p>
+        <h3>First-Principles DFT Calculations</h3>
+        <p>Density functional theory studies on elastic, mechanical, optical, and magnetic properties of bio-derived and functional materials — bridging atomistic simulation with experimental characterization.</p>
+        <div class="r-chips">
+          <span class="r-chip">DFT</span>
+          <span class="r-chip">Sr / Mg Doped HAp</span>
+          <span class="r-chip">Elastic Properties</span>
+          <span class="r-chip">Optical Props.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN -->
+<section class="section-wrap join-pad" id="join">
+  <div class="container">
+    <div class="join-head">
+      <p class="s-label rev">We're Recruiting</p>
+      <h2 class="s-title rev d1">Join BWMG — <em>Shape the Future</em></h2>
+      <p style="font-size:0.95rem; color:var(--silver); margin-top:1rem; max-width:580px; margin-inline:auto; line-height:1.8;" class="rev d2">
+        We seek passionate researchers who want to turn bio-waste into solutions for global health, clean energy, and the environment. International collaborations, synchrotron access, and funding available.
+      </p>
+    </div>
+
+    <div class="pos-grid">
+      <div class="pos-card rev d1">
+        <p class="pos-level">PhD Position</p>
+        <h3>Doctoral Researcher</h3>
+        <p>Lead independent research in biomaterials, energy storage, or sensing with access to world-class facilities and international networks.</p>
+        <ul class="pos-perks">
+          <li>Full scholarship (C2F Fund available)</li>
+          <li>Synchrotron beamtime at SLRI</li>
+          <li>International conference support</li>
+          <li>Co-supervision with VISTEC / SUT</li>
+          <li>3–4 year program</li>
+        </ul>
+      </div>
+      <div class="pos-card rev d2">
+        <p class="pos-level">Master's Position</p>
+        <h3>Graduate Researcher</h3>
+        <p>Develop hands-on expertise in advanced materials synthesis, characterization, and 3D fabrication in a supportive, publication-active team.</p>
+        <ul class="pos-perks">
+          <li>Thesis research funding</li>
+          <li>State-of-the-art lab equipment</li>
+          <li>Direct mentorship from PI</li>
+          <li>High publication track record</li>
+          <li>2-year program</li>
+        </ul>
+      </div>
+      <div class="pos-card rev d3">
+        <p class="pos-level">Undergraduate</p>
+        <h3>Senior Project Researcher</h3>
+        <p>Gain real research experience in biogenic material synthesis — ideal for students considering graduate school or a research career.</p>
+        <ul class="pos-perks">
+          <li>Senior project supervision</li>
+          <li>Learn advanced lab techniques</li>
+          <li>Co-authorship opportunities</li>
+          <li>Priority for MS admission</li>
+          <li>Flexible schedule</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="join-cta-box rev">
+      <div class="corner-tl"></div>
+      <div class="corner-br"></div>
+      <h3>Ready to Make a Global Impact?</h3>
+      <p>Send your CV, transcripts, and a brief statement of research interest.<br>We respond to all applications within 2 weeks.</p>
+      <div class="cta-row">
+        <a href="mailto:atchara.k@gmail.com?subject=Research Position Inquiry — BWMG" class="btn-gold">✉ Apply Now</a>
+        <a href="#contact" class="btn-line">Learn More →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section class="section-wrap pub-pad" id="publications">
+  <div class="container">
+    <p class="s-label rev">Selected Works</p>
+    <h2 class="s-title rev d1">Recent <em>Publications</em></h2>
+    <div class="pub-list">
+      <div class="pub-row rev">
+        <span class="pub-yr">2025</span>
+        <div>
+          <p class="pub-t">Effect of vacancies on blue-colored calcium phosphate scaffolds derived from Nile tilapia bone powder</p>
+          <p class="pub-j">Scientific Reports, Nature Portfolio · 15, 24058</p>
+          <p class="pub-a"><strong>Khamkongkaeo, A.</strong>, Wongrakpanich, A., Chanamuangkon, T., Pimsawat, A., Lohwongwatana, B. et al.</p>
+        </div>
+      </div>
+      <div class="pub-row rev d1">
+        <span class="pub-yr">2024</span>
+        <div>
+          <p class="pub-t">Porous Electrospun Carbon Nanofibers Bearing TiO₂ Hollow Nanospheres for Supercapacitor Electrodes</p>
+          <p class="pub-j">ACS Applied Nano Materials · 7, 6712–6721</p>
+          <p class="pub-a">Wongprasod, S., Tanapongpisit, N., ..., <strong>Khamkongkaeo, A.</strong>, Maensiri, S., Meevasana, W., Bark, C.W., Saenrang, W.</p>
+        </div>
+      </div>
+      <div class="pub-row rev d2">
+        <span class="pub-yr">2024</span>
+        <div>
+          <p class="pub-t">Impacts of pre-treatment methods on morphology, crystal structure, and defects formation of hydroxyapatite extracted from Nile tilapia scales</p>
+          <p class="pub-j">RSC Advances, Royal Society of Chemistry · 14(7), 4614–4622</p>
+          <p class="pub-a">Eknapakul, T., Kuimalee, S., Sailuam, W., ..., Bootchanont, A., <strong>Khamkongkaeo, A.</strong>, Yimnirun, R.</p>
+        </div>
+      </div>
+      <div class="pub-row rev d3">
+        <span class="pub-yr">2024</span>
+        <div>
+          <p class="pub-t">Effects of Sr and Mg doping on elastic, mechanical, and optical properties of hydroxyapatite: A first-principles study</p>
+          <p class="pub-j">Results in Physics, Elsevier · 57, 107352</p>
+          <p class="pub-a">Klinkla, R., Kaewmaraya, T., ..., <strong>Khamkongkaeo, A.</strong>, Rattanachai, Y., Sailuam, W.</p>
+        </div>
+      </div>
+      <div class="pub-row rev">
+        <span class="pub-yr">2022</span>
+        <div>
+          <p class="pub-t">Effect of hydrogen on magnetic properties in MgO studied by first-principles calculations and experiments</p>
+          <p class="pub-j">Scientific Reports, Nature Portfolio · 12, 10063</p>
+          <p class="pub-a">Eknapakul, T., Jiamprasertboon, A., ..., <strong>Khamkongkaeo, A.</strong>, Meevasana, R. et al.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="section-wrap team-pad" id="team">
+  <div class="container">
+    <p class="s-label rev">The People</p>
+    <h2 class="s-title rev d1">Meet the <em>Team</em></h2>
+    <div class="team-grid">
+      <div class="team-card rev d1">
+        <div class="t-avatar" style="color:var(--gold);">A</div>
+        <p class="t-name">Asst. Prof. Dr. Atchara Khamkongkaeo</p>
+        <p class="t-role">Principal Investigator</p>
+        <p class="t-focus">Biomaterials · Synchrotron · 3D Printing · Energy Storage</p>
+      </div>
+      <div class="team-card rev d2">
+        <div class="t-avatar" style="color:var(--sky);">P</div>
+        <p class="t-name">PhD Researchers</p>
+        <p class="t-role">Doctoral Students</p>
+        <p class="t-focus">Advanced synthesis and characterization of bio-derived functional materials</p>
+      </div>
+      <div class="team-card rev d3">
+        <div class="t-avatar" style="color:var(--amber);">M</div>
+        <p class="t-name">Master's Students</p>
+        <p class="t-role">Graduate Researchers</p>
+        <p class="t-focus">Biomaterials, energy storage devices, and functional sensor materials</p>
+      </div>
+      <div class="team-card rev d4">
+        <div class="t-avatar" style="color:var(--silver);">U</div>
+        <p class="t-name">Undergraduate Researchers</p>
+        <p class="t-role">Senior Project Students</p>
+        <p class="t-focus">Materials synthesis and experimental characterization techniques</p>
+      </div>
+    </div>
+    <div class="collab-band rev">
+      <span class="collab-lbl">Collaborations</span>
+      <div class="collab-list">
+        <span class="collab-item">SLRI Thailand</span>
+        <span class="collab-item">VISTEC</span>
+        <span class="collab-item">Suranaree Univ. of Technology</span>
+        <span class="collab-item">Khon Kaen University</span>
+        <span class="collab-item">Hanoi University (Vietnam)</span>
+        <span class="collab-item">Chungbuk National Univ. (Korea)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS -->
+<section class="section-wrap news-pad" id="news">
+  <div class="container">
+    <p class="s-label rev">Latest Updates</p>
+    <h2 class="s-title rev d1">Lab <em>News</em></h2>
+    <div class="news-grid">
+      <div class="news-card rev d1">
+        <span class="n-cat cat-p">Publication</span>
+        <p class="n-date">July 2025</p>
+        <h4>New Paper in Scientific Reports</h4>
+        <p>Vacancy-controlled blue-colored calcium phosphate scaffolds from Nile tilapia bone published in Nature's Scientific Reports — opening new directions in coloured functional bioceramics.</p>
+      </div>
+      <div class="news-card rev d2">
+        <span class="n-cat cat-f">Funding</span>
+        <p class="n-date">2024 — Present</p>
+        <h4>C2F Grant — Chulalongkorn University</h4>
+        <p>Supported by the Second Century Fund (C2F). PhD and Master's positions with full funding are now open for biogenic scaffold and energy storage research projects.</p>
+      </div>
+      <div class="news-card rev d3">
+        <span class="n-cat cat-p">Publication</span>
+        <p class="n-date">2024</p>
+        <h4>TiO₂ Supercapacitor Electrodes in ACS</h4>
+        <p>Collaborative work on electrospun carbon nanofibers achieves outstanding energy storage performance — published in ACS Applied Nano Materials with international co-authors from Korea and Vietnam.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section-wrap contact-pad" id="contact">
+  <div class="container">
+    <p class="s-label rev">Get in Touch</p>
+    <h2 class="s-title rev d1">Contact <em>BWMG</em></h2>
+    <div class="contact-grid">
+      <div>
+        <p class="c-info-desc rev d1">
+          Interested in joining the team, exploring research collaborations, or learning more about our work? We'd love to hear from you.
+        </p>
+        <div class="c-items rev d2">
+          <div class="c-item">
+            <div class="c-icon">📍</div>
+            <div>
+              <p class="c-lbl">Address</p>
+              <p class="c-val">Department of Metallurgical Engineering<br>Faculty of Engineering, Chulalongkorn University<br>Wangmai, Pathumwan, Bangkok 10330, Thailand</p>
+            </div>
+          </div>
+          <div class="c-item">
+            <div class="c-icon">✉️</div>
+            <div>
+              <p class="c-lbl">Email</p>
+              <p class="c-val">atchara.k@gmail.com</p>
+            </div>
+          </div>
+          <div class="c-item">
+            <div class="c-icon">🌐</div>
+            <div>
+              <p class="c-lbl">Department</p>
+              <p class="c-val">metal.eng.chula.ac.th</p>
+            </div>
+          </div>
+          <div class="c-item">
+            <div class="c-icon">🔬</div>
+            <div>
+              <p class="c-lbl">Beamline Access</p>
+              <p class="c-val">Synchrotron Light Research Institute (SLRI)<br>Nakhon Ratchasima, Thailand</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form rev d2">
+        <h3>Send a Message</h3>
+        <div class="f-group">
+          <label class="f-lbl">Full Name</label>
+          <input type="text" class="f-input" placeholder="Your name">
+        </div>
+        <div class="f-group">
+          <label class="f-lbl">Email Address</label>
+          <input type="email" class="f-input" placeholder="your@email.com">
+        </div>
+        <div class="f-group">
+          <label class="f-lbl">I am interested in</label>
+          <select class="f-select">
+            <option value="">Select inquiry type</option>
+            <option>PhD Position</option>
+            <option>Master's Position</option>
+            <option>Undergraduate Research</option>
+            <option>Research Collaboration</option>
+            <option>General Inquiry</option>
+          </select>
+        </div>
+        <div class="f-group">
+          <label class="f-lbl">Message</label>
+          <textarea class="f-textarea" placeholder="Tell us about your background and research interests..."></textarea>
+        </div>
+        <button class="btn-gold" style="width:100%; justify-content:center; border:none; cursor:pointer;">
+          Send Message →
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-brand">
+    <div class="f-emblem">BWMG</div>
+    <div class="f-name">
+      <strong>Bio-Waste to Multifunctional Materials Research Group</strong>
+      Department of Metallurgical Engineering · Chulalongkorn University
+    </div>
+  </div>
+  <p class="f-copy">© 2025 BWMG · All rights reserved</p>
+</footer>
+
+<script>
+// Custom cursor
+const cur = document.getElementById('cur');
+const curR = document.getElementById('cur-r');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {
+  mx=e.clientX; my=e.clientY;
+  cur.style.transform=`translate(${mx}px,${my}px) translate(-50%,-50%)`;
+});
+(function loop(){
+  rx+=(mx-rx)*0.1; ry+=(my-ry)*0.1;
+  curR.style.transform=`translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+  requestAnimationFrame(loop);
+})();
+document.querySelectorAll('a,button,.r-card,.pos-card,.team-card,.news-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{curR.style.width='50px';curR.style.height='50px';curR.style.borderColor='rgba(252,211,77,0.8)';});
+  el.addEventListener('mouseleave',()=>{curR.style.width='32px';curR.style.height='32px';curR.style.borderColor='rgba(252,211,77,0.5)';});
+});
+
+// Scroll reveal
+const io = new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rev').forEach(el=>io.observe(el));
+
+// Nav active
+window.addEventListener('scroll',()=>{
+  let cur2='';
+  document.querySelectorAll('section[id]').forEach(s=>{if(window.scrollY>=s.offsetTop-130)cur2=s.id;});
+  document.querySelectorAll('.nav-links a:not(.nav-join)').forEach(a=>{
+    a.style.color=a.getAttribute('href')==='#'+cur2?'var(--gold)':'';
+  });
+});
+</script>
+</body>
+</html>
